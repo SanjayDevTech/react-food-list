@@ -1,6 +1,8 @@
 import logo from './logo.svg';
 import { AppBar, Badge, IconButton, makeStyles, Toolbar, Typography } from "@material-ui/core";
 import { AccountCircle, ShoppingCart } from "@material-ui/icons";
+import { connect } from "react-redux";
+import { cartSelector } from "./redux/store";
 
 const useStyles = makeStyles(() => ({
     grow: {
@@ -10,7 +12,7 @@ const useStyles = makeStyles(() => ({
         maxHeight: 50
     }
 }));
-function Header() {
+function Header(props) {
     const classes = useStyles();
     return (
         <AppBar position="static">
@@ -20,7 +22,7 @@ function Header() {
                 <Typography variant="h5" >React food list</Typography>
                 <div className={classes.grow} />
                 <IconButton color="inherit">
-                    <Badge badgeContent={10} max={9} color="error">
+                    <Badge badgeContent={props.cartCount} max={9} color="error">
                         <ShoppingCart className={classes.toolbarIcons} />
                     </Badge>
                 </IconButton>
@@ -32,4 +34,16 @@ function Header() {
     );
 }
 
-export default Header;
+const mapStateToProps = state => {
+  let count = 0;
+  cartSelector(state).forEach((cartItem) => {
+    if (cartItem.count > 0) {
+      count += cartItem.count;  
+    }
+  });
+  return {
+     cartCount: count
+  }
+};
+
+export default connect(mapStateToProps)(Header);
