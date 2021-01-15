@@ -1,0 +1,27 @@
+name: CI
+on:
+  push:
+    branches: [master]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: npm install
+
+      - name: Deploy React App
+        run: |
+          git config --global user.name $GITHUB_USERNAME
+          git config --global user.email $GITHUB_EMAIL
+          git remote set-url origin https://${GITHUB_TOKEN}@github.com/${GITHUB_REPO}
+          npm run deploy
+        env:
+          GITHUB_USERNAME: "github-actions[bot]"
+          GITHUB_EMAIL: "github-actions[bot]@users.noreply.github.com"
+          GITHUB_TOKEN: ${{ secrets.ACTIONS_DEPLOY_ACCESS_TOKEN }}
+          GITHUB_REPO: ${{ github.repository }}
