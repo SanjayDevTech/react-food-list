@@ -8,6 +8,7 @@ const rootReducer = combineReducers({ food: foodReducer, cart: cartReducer });
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
 
 export const foodSelector = state => state.food.foodItems;
+export const foodLoadingSelector = state => state.food.loading;
 export const cartSelector = state => state.cart.cartItems;
 
 export default store;

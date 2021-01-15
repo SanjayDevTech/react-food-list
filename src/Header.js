@@ -3,6 +3,7 @@ import { AppBar, Badge, IconButton, makeStyles, Toolbar, Typography } from "@mat
 import { AccountCircle, ShoppingCart } from "@material-ui/icons";
 import { connect } from "react-redux";
 import { cartSelector } from "./redux/store";
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles(() => ({
     grow: {
@@ -14,14 +15,23 @@ const useStyles = makeStyles(() => ({
 }));
 function Header(props) {
     const classes = useStyles();
+    const history = useHistory();
     return (
         <AppBar position="static">
             <Toolbar>
-                <img className={classes.toolbarIcons} src={logo} alt='' />
+                <IconButton onClick={() => {
+                    if (history.location.pathname !== '/')
+                        history.push('/');
+                }}>
+                    <img className={classes.toolbarIcons} src={logo} alt='' />
+                </IconButton>
                 <div className={classes.grow} />
                 <Typography variant="h5" >React food list</Typography>
                 <div className={classes.grow} />
-                <IconButton color="inherit">
+                <IconButton onClick={() => {
+                    if (history.location.pathname !== '/cart')
+                        history.push('/cart');
+                }} color="inherit">
                     <Badge badgeContent={props.cartCount} max={9} color="error">
                         <ShoppingCart className={classes.toolbarIcons} />
                     </Badge>
@@ -35,15 +45,15 @@ function Header(props) {
 }
 
 const mapStateToProps = state => {
-  let count = 0;
-  cartSelector(state).forEach((cartItem) => {
-    if (cartItem.count > 0) {
-      count += cartItem.count;  
+    let count = 0;
+    cartSelector(state).forEach((cartItem) => {
+        if (cartItem.count > 0) {
+            count += cartItem.count;
+        }
+    });
+    return {
+        cartCount: count
     }
-  });
-  return {
-     cartCount: count
-  }
 };
 
 export default connect(mapStateToProps)(Header);

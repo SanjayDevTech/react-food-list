@@ -1,4 +1,4 @@
-import { Card, CardActions, CardContent, CardMedia, IconButton, makeStyles, Typography } from "@material-ui/core";
+import { Card, CardActionArea, CardActions, CardContent, CardMedia, IconButton, makeStyles, Typography } from "@material-ui/core";
 import { AddShoppingCart } from "@material-ui/icons";
 import Rating from '@material-ui/lab/Rating';
 import { connect } from 'react-redux';
@@ -11,7 +11,7 @@ const useStyles = makeStyles(() => ({
         maxHeight: 500,
     },
     grow: {
-      flexGrow: 1,
+        flexGrow: 1,
     },
     media: {
         paddingTop: '56.25%'
@@ -20,19 +20,21 @@ const useStyles = makeStyles(() => ({
 
 function FoodItem(props) {
     const classes = useStyles();
-    const {food} = props;
+    const { food } = props;
     return (
-        <Card className={classes.root}>
-            <CardMedia className={classes.media}
-                image={food.img}
-                title={food.title} />
-            <CardContent>
-                <Typography variant="body1">
-                    {food.title}
-                </Typography>
-                <div className={classes.grow} />
-                <Rating name="half-rating-read" defaultValue={food.rating} precision={0.1} readOnly />
-            </CardContent>
+        <Card elevation={3} className={classes.root}>
+            <CardActionArea>
+                <CardMedia className={classes.media}
+                    image={food.img}
+                    title={food.title} />
+                <CardContent>
+                    <Typography variant="body1">
+                        {food.title}
+                    </Typography>
+                    <div className={classes.grow} />
+                    <Rating name="half-rating-read" defaultValue={food.rating} precision={0.1} readOnly />
+                </CardContent>
+            </CardActionArea>
             <CardActions>
                 <IconButton onClick={() => props.addItem(food.id)} color="secondary" aria-label="add to cart">
                     <AddShoppingCart />
@@ -43,7 +45,7 @@ function FoodItem(props) {
 }
 
 const mapDispatchToProps = dispatch => ({
-  addItem: (id) => dispatch(addItemToCart(id))
+    addItem: (id) => dispatch(addItemToCart(id))
 });
 
 export default connect(null, mapDispatchToProps)(FoodItem);
