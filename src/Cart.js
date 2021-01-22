@@ -4,6 +4,7 @@ import CartItem from "./CartItem";
 import { cartSelector, foodLoadingSelector, foodSelector } from "./redux/store";
 import { fetchFoods } from "./redux/food/foodActions";
 import React from 'react';
+import { FETCH_FOODS_REQUEST_ASYNC } from "./redux/food/foodTypes";
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -58,7 +59,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    fetchFoodsP: () => dispatch(fetchFoods())
+    fetchFoods: () => dispatch({ type: FETCH_FOODS_REQUEST_ASYNC })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);

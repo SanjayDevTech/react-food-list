@@ -4,6 +4,7 @@ import FoodItem from "./FoodItem";
 import { fetchFoods } from "./redux/food/foodActions";
 import { foodSelector, foodLoadingSelector } from "./redux/store";
 import { ClipLoader } from 'react-spinners';
+import { FETCH_FOODS_REQUEST_ASYNC } from "./redux/food/foodTypes";
 
 const useStyles = makeStyles(() => ({
     loading: {
@@ -36,7 +37,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    fetchFoods: () => dispatch(fetchFoods())
+    fetchFoods: () => dispatch({ type: FETCH_FOODS_REQUEST_ASYNC })
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FoodList);

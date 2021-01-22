@@ -1,14 +1,9 @@
 import axios from "axios";
 import { FETCH_FOODS_FAILURE, FETCH_FOODS_REQUEST, FETCH_FOODS_SUCCESS } from "./foodTypes";
 
-export const fetchFoods = () => dispatch => {
-    dispatch(fetchFoodsRequest());
-    axios.get("https://json-placeholder-server.herokuapp.com/foods")
-        .then(res => dispatch(fetchFoodsSuccess(res.data)))
-        .catch(e => dispatch(fetchFoodsFailure(e)))
-};
+export const fetchFoods = () => axios.get("https://json-placeholder-server.herokuapp.com/foods");
 
-const fetchFoodsRequest = () => ({
+export const fetchFoodsRequest = () => ({
     type: FETCH_FOODS_REQUEST,
 });
 
