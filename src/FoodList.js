@@ -1,7 +1,7 @@
 import { Box, Grid, makeStyles } from "@material-ui/core";
 import { connect } from "react-redux";
 import FoodItem from "./FoodItem";
-import { fetchFoods } from "./redux/food/foodActions";
+// import { fetchFoods } from "./redux/food/foodActions";
 import { foodSelector, foodLoadingSelector } from "./redux/store";
 import { ClipLoader } from 'react-spinners';
 import { FETCH_FOODS_REQUEST_ASYNC } from "./redux/food/foodTypes";

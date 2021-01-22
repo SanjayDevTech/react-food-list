@@ -2,7 +2,6 @@ import { Paper, Typography, makeStyles, Grid, Divider, Box } from "@material-ui/
 import { connect } from "react-redux";
 import CartItem from "./CartItem";
 import { cartSelector, foodLoadingSelector, foodSelector } from "./redux/store";
-import { fetchFoods } from "./redux/food/foodActions";
 import React from 'react';
 import { FETCH_FOODS_REQUEST_ASYNC } from "./redux/food/foodTypes";
 
